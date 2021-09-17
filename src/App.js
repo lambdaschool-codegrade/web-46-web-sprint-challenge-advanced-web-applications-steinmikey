@@ -1,18 +1,26 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Link, Switch } from "react-router-dom";
 
 import Login from "./components/Login";
 import "./styles.scss";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
+    <Router className="App">
+      {" "}
+      {/* class was on the div, but that threw off the browser display.. */}
+      <div>
         <header>
           Color Picker Sprint Challenge
-          <a data-testid="logoutButton" href="#">logout</a>
+          <a data-testid="logoutButton" href="#">
+            logout
+          </a>
         </header>
       </div>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/" component={Login} />
+      </Switch>
     </Router>
   );
 }
