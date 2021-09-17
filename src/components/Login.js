@@ -1,16 +1,18 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-const initialLoginState = {
+import axiosWithAuth from "../helpers/axiosWithAuth";
+
+const initialState = {
   credentials: {
     username: "",
     password: ""
-  }
+  },
+  error: false
 };
 
 const Login = (props) => {
-  const [loginState, setLoginState] = useState(initialLoginState);
-  // make a post request to retrieve a token from the api
+  const [loginState, setLoginState] = useState(initialState);
   // when you have handled the token, navigate to the BubblePage route
 
   const error = "";
@@ -29,14 +31,19 @@ const Login = (props) => {
   const login = (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:5000/api/login", loginState.credentials)
+    axiosWithAuth()
+      .post("/login", loginState.credentials)
       .then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.payload);
+        props.history.push("/bubbles");
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
+        setLoginState({
+          ...loginState,
+          error: true
+        });
       });
   };
 
@@ -63,10 +70,11 @@ const Login = (props) => {
           <button id="submit">Login</button>
         </form>
       </div>
-
-      <p id="error" className="error">
-        {error}
-      </p>
+      {loginState.error && (
+        <p id="error" className="error">
+          Username or Password is incorrect
+        </p>
+      )}
     </div>
   );
 };

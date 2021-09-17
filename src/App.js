@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Redirect, Link, Switch } from "react-router-dom";
 
 import Login from "./components/Login";
+import BubblePage from "./components/BubblePage";
+import PrivateRoute from "./components/PrivateRoute";
+
 import "./styles.scss";
 
 function App() {
@@ -19,7 +22,8 @@ function App() {
       </div>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/" component={Login} />
+        <Route exact path="/" component={Login} />
+        <PrivateRoute path="/bubbles" component={BubblePage} />
       </Switch>
     </Router>
   );
