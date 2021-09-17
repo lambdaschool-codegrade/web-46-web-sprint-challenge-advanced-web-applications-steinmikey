@@ -4,7 +4,7 @@ import { Svg, Circle } from "@potion/element";
 
 const Bubbles = ({ colors }) => {
   const [bubbleData, setBubbleData] = useState([]);
-  
+
   useEffect(() => {
     const generateBubbleData = colors.map((_, i) => ({
       value: Math.floor(Math.random() * (colors.length * 2)) + 1,
@@ -21,29 +21,21 @@ const Bubbles = ({ colors }) => {
           data={{
             children: bubbleData
           }}
-          sum={datum => datum.value}
+          sum={(datum) => datum.value}
           size={[400, 400]}
           includeRoot={false}
-          nodeEnter={d => ({ ...d, r: 0 })}
+          nodeEnter={(d) => ({ ...d, r: 0 })}
           animate
         >
-          {nodes =>
+          {(nodes) =>
             nodes
               .map(({ x, y, r, key }, i) => {
                 if (i < colors.length) {
-                  return (
-                    <Circle
-                      key={key}
-                      cx={x}
-                      cy={y}
-                      r={r}
-                      fill={colors[i].code.hex}
-                    />
-                  );
+                  return <Circle key={key} cx={x} cy={y} r={r} fill={colors[i].code.hex} />;
                 }
                 return null;
               })
-              .filter(v => v)
+              .filter((v) => v)
           }
         </Pack>
       </Svg>
