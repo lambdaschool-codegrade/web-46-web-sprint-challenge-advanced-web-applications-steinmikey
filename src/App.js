@@ -9,7 +9,7 @@ import "./styles.scss";
 import axiosWithAuth from "./helpers/axiosWithAuth";
 
 function App() {
-  const isLoggedIn = localStorage.getItem("token");
+  // const isLoggedIn = localStorage.getItem("token");
 
   const logout = (e) => {
     axiosWithAuth()
